@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
-  attr_accessor :email, :password
+	has_secure_password
 
-  validates_presence_of :password, on: :sign_in
-  validates_presence_of :email, on: :sign_in, message: "Can't be blank"
-
-  has_many :posts
-
+	def self.authenticate(email, password)
+		user = find_by_email(email)
+		if user && user.password == BCryt::Engine.hash_secret(password)
+			user
+		end
+	end
 end

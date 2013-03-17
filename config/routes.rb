@@ -1,5 +1,6 @@
 AkashsotiCom::Application.routes.draw do
-  get "sign_in" => "users#sign_in", as: "backdoor"
+  get "backdoor" => "sessions#new", as: "backdoor"
+
   root to: "home#index"
-  resources :users
+  resources :sessions
 end
